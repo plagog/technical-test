@@ -31,6 +31,26 @@ $main-grey: #b9b9b9;
 
 .console {
   align-self: start;
+  width: 100%;
+  margin-bottom: 20px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.158);
+  border-radius: 5px;
+  border: 1px solid rgba(204, 204, 204, 0.507);
+  .MuiAccordionDetails-root {
+    height: 218px;
+  }
+  h2 {
+    margin: 0;
+  }
+  p {
+    font-weight: 500;
+    margin: 0 10px 0 0;
+    transition: all 200ms;
+    &:hover {
+      color: rgb(53, 116, 209);
+      transition: all 200ms;
+    }
+  }
 }
 
 .main {
