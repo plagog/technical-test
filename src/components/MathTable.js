@@ -11,11 +11,29 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 const API1 = "https://100insure.com/mi/api1.php";
 const API2 = "https://100insure.com/mi/api2.php";
 
+const operatorSigns = {
+  minus: "-",
+  plus: "+",
+  "divided by": "/",
+  times: "*",
+};
+
 const columns = [
   { field: "num1", headerName: "First Number", width: 120 },
   { field: "operation", headerName: "Operator", width: 100 },
   { field: "num2", headerName: "Second Number", width: 140 },
   { field: "result", headerName: "Result", width: 100 },
+  {
+    field: "equation",
+    headerName: "Equation",
+    description: "Equation represantaion.",
+    sortable: false,
+    width: 180,
+    valueGetter: (params) =>
+      `${params.row.num1} ${operatorSigns[params.row.operation]} ${
+        params.row.num2
+      } = ${params.row.result}`,
+  },
 ];
 
 const MathTable = () => {
