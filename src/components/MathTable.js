@@ -26,7 +26,7 @@ const columns = [
   {
     field: "equation",
     headerName: "Equation",
-    description: "Equation represantaion.",
+    description: "Equation representation.",
     sortable: false,
     width: 180,
     valueGetter: (params) =>
@@ -166,7 +166,7 @@ const MathTable = () => {
           <AccordionDetails>
             <ul>
               <li>
-                Fetching and converting word numbers:
+                Fetching and converting words to numbers:
                 {loading1 && (
                   <CircularProgress
                     size={12}
