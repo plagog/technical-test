@@ -51,7 +51,6 @@ const MathTable = () => {
     fetchOperationResults();
 
     async function fetchOperationResults() {
-      
       if (numbers.length > 0) {
         for (let operator of operators) {
           setLoading2(true);
@@ -85,7 +84,12 @@ const MathTable = () => {
   return (
     <>
       <div className="console">
-        <h2>Mock Console <span style={{fontSize:12}}>Press F5 for a new set of numbers</span></h2>
+        <h2>
+          Mock Console{" "}
+          <span style={{ fontSize: 12 }}>
+            Press F5 for a new set of numbers
+          </span>
+        </h2>
 
         <ul>
           <li>
@@ -140,26 +144,7 @@ const MathTable = () => {
               </ul>
             </li>
           )}
-          {!loading1 && !loading2 && (
-            <li>
-              {loading ? (
-                <span>
-                  Inserting data into table
-                  <CircularProgress
-                    size={12}
-                    sx={{
-                      color: "black",
-
-                      marginTop: "-12px",
-                      marginLeft: "5px",
-                    }}
-                  />
-                </span>
-              ) : (
-                "Done"
-              )}
-            </li>
-          )}
+          {!loading1 && !loading2 && <li>{!loading && "Done"}</li>}
         </ul>
       </div>
       <div className="main">
