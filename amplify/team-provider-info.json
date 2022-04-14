@@ -10,6 +10,14 @@
       "StackName": "amplify-technicaltesttemp-dev-04757",
       "StackId": "arn:aws:cloudformation:us-east-2:241504684625:stack/amplify-technicaltesttemp-dev-04757/10d0b660-bbae-11ec-9367-0a4d8931b73c",
       "AmplifyAppId": "d227i1a13dlv67"
+    },
+    "categories": {
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "d227i1a13dlv67",
+          "type": "manual"
+        }
+      }
     }
   }
 }

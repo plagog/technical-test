@@ -14,33 +14,47 @@ const columns = [
 ];
 
 const MathTable = () => {
+  const [words, setWords] = useState([]);
   const [numbers, setNumbers] = useState([]);
   const [results, setResults] = useState([]);
   const [operators] = useState(["minus", "plus", "times", "divided by"]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [loading1, setLoading1] = useState(true);
+  const [loading2, setLoading2] = useState(true);
 
   useEffect(() => {
     setLoading(true);
+
     fetchNumbers();
 
     async function fetchNumbers() {
+      setNumbers([]);
+      setWords([]);
+      setLoading1(true);
       const DATA = await fetch(API1, { method: "GET" });
       const body = await DATA.json();
       let tempArray = [];
+      let tempArray1 = [];
       Object.values(body).forEach((value) => {
         tempArray.push(wordToNumber(value));
+        tempArray1.push(value);
       });
+      setWords(tempArray1);
       setNumbers(tempArray);
+
+      setLoading1(false);
     }
   }, []);
 
   useEffect(() => {
+    setResults([]);
     fetchOperationResults();
 
     async function fetchOperationResults() {
-      let tempResults = [];
+      
       if (numbers.length > 0) {
         for (let operator of operators) {
+          setLoading2(true);
           let DATA = await fetch(API2, {
             method: "POST",
             body: JSON.stringify({
@@ -60,38 +74,103 @@ const MathTable = () => {
             operation: operator,
             result: body,
           };
-          tempResults.push(element);
+          setResults((results) => [...results, element]);
+          setLoading2(false);
         }
-        console.log(tempResults)
-        setResults(tempResults);
         setLoading(false);
       }
     }
   }, [numbers, operators]);
 
-  console.log(results)
   return (
-    <div className="main">
-      <DataGrid
-        rows={results}
-        columns={columns}
-        pageSize={4}
-        rowsPerPageOptions={[4]}
-      />
-      {loading && (
-        <CircularProgress
-          size={24}
-          sx={{
-            color: "black",
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            marginTop: "-12px",
-            marginLeft: "-12px",
-          }}
+    <>
+      <div className="console">
+        <h2>Mock Console <span style={{fontSize:12}}>Press F5 for a new set of numbers</span></h2>
+
+        <ul>
+          <li>
+            Fetching and converting word numbers:
+            {loading1 && (
+              <CircularProgress
+                size={12}
+                sx={{
+                  color: "black",
+
+                  marginTop: "-12px",
+                  marginLeft: "5px",
+                }}
+              />
+            )}
+            <ul>
+              {words[0] && (
+                <li>
+                  {words[0]} -> {numbers[0]}
+                </li>
+              )}
+              {words[1] && (
+                <li>
+                  {words[1]} -> {numbers[1]}
+                </li>
+              )}
+            </ul>
+          </li>
+
+          {!loading1 && (
+            <li>
+              Fetching result for each operation
+              {loading2 && (
+                <CircularProgress
+                  size={12}
+                  sx={{
+                    color: "black",
+
+                    marginTop: "-12px",
+                    marginLeft: "5px",
+                  }}
+                />
+              )}
+              <ul>
+                {results.map((el, i) => {
+                  return (
+                    <li key={i}>
+                      {el?.operation} -> {el?.result}
+                    </li>
+                  );
+                })}
+              </ul>
+            </li>
+          )}
+          {!loading1 && !loading2 && (
+            <li>
+              {loading ? (
+                <span>
+                  Inserting data into table
+                  <CircularProgress
+                    size={12}
+                    sx={{
+                      color: "black",
+
+                      marginTop: "-12px",
+                      marginLeft: "5px",
+                    }}
+                  />
+                </span>
+              ) : (
+                "Done"
+              )}
+            </li>
+          )}
+        </ul>
+      </div>
+      <div className="main">
+        <DataGrid
+          rows={results}
+          columns={columns}
+          pageSize={4}
+          rowsPerPageOptions={[4]}
         />
-      )}
-    </div>
+      </div>
+    </>
   );
 };
 
