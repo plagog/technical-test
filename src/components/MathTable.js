@@ -5,7 +5,6 @@ import { CircularProgress } from "@mui/material";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
-import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 const API1 = "https://100insure.com/mi/api1.php";
@@ -139,7 +138,7 @@ const MathTable = () => {
                     marginLeft: "10px",
                   }}
                 >
-                  Press F5 for a new set of numbers
+                  {/* Press F5 for a new set of numbers */}
                 </span>
               </span>
               {loading ? (
@@ -194,7 +193,7 @@ const MathTable = () => {
 
               {!loading1 && (
                 <li>
-                  Fetching result for each operation
+                  Fetching result for each operation:
                   {loading2 && (
                     <CircularProgress
                       size={12}
